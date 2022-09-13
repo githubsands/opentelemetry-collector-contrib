@@ -1,0 +1,17 @@
+receivers:
+   supervisord:
+exporters:
+    logging:
+        loglevel: debug
+    otlp:
+      endpoint: ingest.lightstep.com:443
+      headers:
+        "lightstep-access-token": "${LS_ACCESS_TOKEN}"
+
+service:
+    telemetry:
+      metrics:
+    pipelines:
+      metrics:
+        receivers: [otlp]
+        exporters: [logging, otlp]

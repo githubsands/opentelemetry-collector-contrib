@@ -1,14 +1,16 @@
-FROM golang:1.14-alpine as prep
+FROM golang:1.19-alpine as prep
 
 RUN apk --update add ca-certificates
 
-WORKDIR /usr/src/
+WORKDIR /usr/src/otelcontribcol
 
 RUN mkdir -p /tmp
 
-COPY opentelemetry-collector-contrib .
+COPY . .
 
-RUN cd opentelemetry-collector-contrib/cmd/otelcontribcol && go mod tidy && go build -o /usr/local/bin/otelcontribcol
+USER root
+
+RUN cd opentelemetry-collector-contrib/cmd/otelcontribcol && go build -o /usr/local/bin/otelcontribcol
 
 FROM alpine:latest as exe
 

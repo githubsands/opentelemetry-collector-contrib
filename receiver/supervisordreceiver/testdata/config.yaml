@@ -1,0 +1,16 @@
+receivers:
+  supervisord:
+    endpoint: "unix:///var/run/supervisor.sock"
+
+processors:
+  nop:
+
+exporters:
+  nop:
+
+service:
+  pipelines:
+    traces:
+     receivers: [zipkin]
+     processors: [nop]
+     exporters: [nop]

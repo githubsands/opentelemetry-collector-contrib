@@ -1,0 +1,25 @@
+---
+# Required: name of the receiver.
+name: hypervisord receiver
+
+attributes:
+  name:
+    description: The number of processes
+    enum:
+    - nameless
+    - name
+
+metrics:
+  supervisord.process.count:
+    enabled: true
+    description: The number of supervisord monitored processes
+    unit: "{processe}"
+    gauge:
+      value_type: uint8
+  supervisord.process.uptime:
+    enabled: true
+    description: The process uptime
+    unit: "{count}"
+    gauge:
+      value_type: int
+    attributes: [name]
